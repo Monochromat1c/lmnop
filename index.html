@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Special Graduation Message</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-100 to-blue-100">
+    <audio id="bg-music" src="src/audio/bgm.mp3" loop></audio>
+    <div class="p-6 z-20 relative" id="main-content">
+      <!-- Message Modals -->
+      <div id="msg-1" class="fixed inset-0 z-40 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+        <div class="px-6">
+          <div class="w-full max-w-2xl mx-auto p-8 bg-white/80 rounded-xl shadow-lg flex flex-col items-center gap-8">
+            <h1 id="typewriter-header" class="text-3xl md:text-5xl font-bold text-center text-pink-700"></h1>
+            <div class="text-lg md:text-2xl text-center text-gray-800">
+              <p id="typewriter-msg" class="whitespace-pre-line"></p>
+            </div>
+            <div id="message-navigation" class="flex flex-col sm:flex-row gap-4 w-full justify-center hidden">
+              <button id="nextMsgBtn" class="flex-1 py-3 px-6 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition flex items-center justify-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+                </svg>
+                <p>NEXT</p>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Overlay -->
+    <div id="landing-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+      <div class="px-6">
+        <div class="w-full max-w-md mx-auto p-6 bg-white rounded-xl shadow-lg flex flex-col items-center gap-6">
+          <h2 class="text-2xl md:text-3xl font-bold text-center text-blue-700">Welcome!</h2>
+          <p class="text-base md:text-lg text-center text-gray-700">This page contains a special message for you. It may take
+            a while to read.<br><br><span class="font-semibold text-sm text-pink-600">For the best experience, please make sure
+              your device volume is up!</span></p>
+          <div class="flex flex-col sm:flex-row gap-4 w-full justify-center">
+            <button id="proceedBtn"
+              class="flex-1 py-3 px-6 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition">Proceed</button>
+            <!-- <button id="cancelBtn" class="flex-1 py-3 px-6 rounded-lg bg-gray-300 text-gray-800 font-semibold hover:bg-gray-400 transition">Cancel</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Cancel Message Modal -->
+    <div id="cancel-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+      <div class="w-full max-w-md mx-auto p-6 px-4 bg-white rounded-xl shadow-lg flex flex-col items-center gap-6">
+        <h2 class="text-2xl md:text-3xl font-bold text-center text-gray-700">Maybe Next Time!</h2>
+        <p class="text-base md:text-lg text-center text-gray-600">You chose not to continue. If you change your mind, you can always come back and read your special message.</p>
+        <button id="backBtn" class="py-3 px-8 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition">Back</button>
+      </div>
+    </div>
+    <!-- Twinkling Stars Background with Overlay -->
+    <div id="twinkle-overlay" class="pointer-events-none select-none fixed inset-0 z-10 bg-black/20"></div>
+    <div id="twinkle-bg" class="pointer-events-none select-none fixed inset-0 z-10 overflow-hidden"></div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const audio = document.getElementById('bg-music');
+        const landingModal = document.getElementById('landing-modal');
+        const cancelModal = document.getElementById('cancel-modal');
+        const mainContent = document.getElementById('main-content');
+        const proceedBtn = document.getElementById('proceedBtn');
+        const backBtn = document.getElementById('backBtn');
+        if (proceedBtn) {
+          proceedBtn.onclick = function() {
+            landingModal.style.display = 'none';
+            audio.volume = 0.7;
+            audio.play().catch(() => {});
+            typeWriterHeader();
+          };
+        }
+        if (document.getElementById('cancelBtn')) {
+          document.getElementById('cancelBtn').onclick = function() {
+            landingModal.style.display = 'none';
+            mainContent.style.filter = 'blur(2px)';
+            cancelModal.style.display = 'flex';
+          };
+        }
+        if (backBtn) {
+          backBtn.onclick = function() {
+            cancelModal.style.display = 'none';
+            mainContent.style.filter = '';
+            landingModal.style.display = 'flex';
+          };
+        }
+        // Twinkling stars logic
+        const twinkleBg = document.getElementById('twinkle-bg');
+        const STAR_COUNT = 40;
+        const STAR_COLORS = ['#fff', '#a5b4fc', '#f0abfc', '#f9a8d4']; // white, blue, purple, pink
+        for (let i = 0; i < STAR_COUNT; i++) {
+          const star = document.createElement('div');
+          star.className = 'twinkle-star';
+          star.style.left = Math.random() * 100 + 'vw';
+          star.style.top = Math.random() * 100 + 'vh';
+          const size = Math.random() * 4 + 2;
+          star.style.width = star.style.height = size + 'px';
+          star.style.background = STAR_COLORS[Math.floor(Math.random() * STAR_COLORS.length)];
+          star.style.animationDelay = (Math.random() * 6) + 's';
+          twinkleBg.appendChild(star);
+        }
+        // Typewriter effect for msg-1
+        const typewriterHeader = document.getElementById('typewriter-header');
+        const headerText = "Congratulations, WEALYYYYYYYYN!";
+        let twHeaderIndex = 0;
+        function typeWriterHeader() {
+          if (twHeaderIndex <= headerText.length) {
+            typewriterHeader.textContent = headerText.slice(0, twHeaderIndex);
+            twHeaderIndex++;
+            setTimeout(typeWriterHeader, 50);
+          } else {
+            typeWriterMsg(); // Start message typewriter after header finishes
+          }
+        }
+        const typewriterMsg = document.getElementById('typewriter-msg');
+        const message1_1 = `Yudiiiiii graduate na sa kuno HAHAHAHAHAHHAHAHA`;
+        const message1_2 = `I am genuinely proud gid ya para sa imo as your friend!!!! Nakita ko gid kung pano ka magbakas (lalo na sa aton capstone HAHAHAHAHAHAHA)`
+        const message1_3 = `Gusto ko lang ihambal nga na-appreciate ko gid ang imo effort sa pag ubra sang papers naton kag for sure, wala gid nasayang ang imo efforts kay as you can see, magraduate na ta yeeeyyy HAHAHAHAHAHAHAHA`
+        const message1_4 = `Mamiss ka gid nakon frfr kay isa ka gid sa gin turing ko nga genuine friend ko gid ya 🥺🥹`
+        const message1_5 = `Sorry gid kung masyado ko kasabad kag gamo gamo sa chat kis-a (indi lang kis-a, laban gid ya HAHAHAHAHAHA), basi gani guro nagsulod na simo mind nga e restrict ko para indi magamo gani sorry gid HAHAHAHAHAHAHAHAHA`
+        const message1_6 = `Daw sa imo ko lang gid bi nafeel nga comfortable gid ko as in so sinawo mo gid tanan tanan HAHAHAHAHAHAHAHAH sorry gid ya wealyyyyyyn 😭🙏🏻`
+        const message1_7 = `Sobra gid ko ka thankful kay naging part ka sang akon college life (although 3rd year na ta naging close nga duwa, which naga regret gid ko ya kay way ta ka ngadaan gin befriend 🥹) HALAAAAA ANO INI ANG GATULO SAKON CHURA!! GAGI GAULAN SA SULOD SANG KWARTO YA`
+        let twMsgIndex = 0;
+        let currentTextIndex = 0; // To keep track of which text is being typed
+        const textsToType = [message1_1, message1_2, message1_3, message1_4, message1_5, message1_6, message1_7]; // Array of texts to type
+        let typingComplete = false; // Flag to indicate if typing of current message is complete
+        function typeWriterMsg() {
+          if (currentTextIndex < textsToType.length) {
+            const currentText = textsToType[currentTextIndex];
+            // Typing phase
+            if (twMsgIndex <= currentText.length) {
+              typewriterMsg.textContent = currentText.slice(0, twMsgIndex);
+              twMsgIndex++;
+              setTimeout(typeWriterMsg, 35);
+            } else {
+              // Finished typing current text, now show Next button
+              typingComplete = true;
+              if (currentTextIndex + 1 < textsToType.length) {
+                document.getElementById('message-navigation').classList.remove('hidden');
+              }
+            }
+          }
+        }
+        function startBackspace() {
+          document.getElementById('message-navigation').classList.add('hidden'); // Hide next button
+          const currentElementText = typewriterMsg.textContent;
+          if (currentElementText.length > 0) {
+            typewriterMsg.textContent = currentElementText.slice(0, currentElementText.length - 1);
+            setTimeout(startBackspace, 20);
+          } else {
+            currentTextIndex++;
+            twMsgIndex = 0;
+            typingComplete = false;
+            setTimeout(typeWriterMsg, 500);
+          }
+        }
+        // Hook up the next button
+        document.getElementById('nextMsgBtn').onclick = function() {
+          if (typingComplete) {
+            startBackspace();
+          }
+        };
+        // Modal navigation logic can be added here for msg-2 to msg-5
+      });
+    </script>
+    <style>
+      .twinkle-star {
+        position: absolute;
+        /* Remove border-radius for diamond */
+        /* border-radius: 50%; */
+        opacity: 0.85;
+        box-shadow: 0 0 16px 6px #fff8, 0 0 32px 12px #fff3;
+        animation: twinkle 2.5s infinite ease-in-out;
+        transform: rotate(45deg);
+      }
+      @keyframes twinkle {
+        0%, 100% { opacity: 0.85; }
+        50% { opacity: 0.2; }
+      }
+    </style>
+  </body>
+</html> 
