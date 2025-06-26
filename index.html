@@ -180,23 +180,24 @@
             }
           }
         }
-        function startBackspace() {
-          document.getElementById('message-navigation').classList.add('hidden'); // Hide next button
+        function startDeleteAndType() {
           const currentElementText = typewriterMsg.textContent;
-          if (currentElementText.length > 0) {
-            typewriterMsg.textContent = currentElementText.slice(0, currentElementText.length - 1);
-            setTimeout(startBackspace, 20);
-          } else {
+          typewriterMsg.classList.add('selected'); // Add selection class
+          typewriterMsg.style.userSelect = 'all'; // Simulate text selection
+          setTimeout(() => {
+            typewriterMsg.textContent = ''; // Clear the message immediately
+            typewriterMsg.classList.remove('selected'); // Remove selection class
+            typewriterMsg.style.userSelect = 'none'; // Disable text selection
             currentTextIndex++;
             twMsgIndex = 0;
             typingComplete = false;
-            setTimeout(typeWriterMsg, 500);
-          }
+            setTimeout(typeWriterMsg, 500); // Start typing the next message after a short delay
+          }, 3000); // Duration of the selection effect
         }
         // Hook up the next button
         document.getElementById('nextMsgBtn').onclick = function() {
           if (typingComplete) {
-            startBackspace();
+            startDeleteAndType();
           }
         };
         // Modal navigation logic can be added here for msg-2 to msg-5
@@ -225,6 +226,10 @@
       @keyframes twinkle {
         0%, 100% { opacity: 0.85; }
         50% { opacity: 0.2; }
+      }
+      .selected {
+        background-color: rgba(173, 216, 230, 0.5); /* Light blue background */
+        transition: background-color 0.3s ease;
       }
     </style>
   </body>
