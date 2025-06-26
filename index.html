@@ -9,11 +9,13 @@
   <body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-100 to-blue-100">
     <audio id="bg-music" src="src/audio/bgm.mp3" loop></audio>
     <div class="p-6 z-20 relative" id="main-content">
-      <!-- Message Modals -->
+      <!-- Message Modal -->
       <div id="msg-1" class="fixed inset-0 z-40 flex items-center justify-center bg-black/40 backdrop-blur-sm">
         <div class="px-6">
-          <div class="w-full max-w-2xl mx-auto p-8 bg-white/80 rounded-xl shadow-lg flex flex-col items-center gap-8">
-            <h1 id="typewriter-header" class="text-3xl md:text-5xl font-bold text-center text-pink-700"></h1>
+          <div class="w-full max-w-2xl mx-auto p-8 bg-white/80 rounded-xl shadow-lg flex flex-col items-center gap-3 relative">
+            <!-- Push Pin Icon -->
+            <img src="src/images/pin.png" alt="Pin" class="absolute top-3 right-3 w-6 h-6 text-gray-500" />
+            <h1 id="typewriter-header" class="text-3xl md:text-5xl mt-2 font-bold text-center text-pink-700"></h1>
             <div class="text-lg md:text-2xl text-center text-gray-800">
               <p id="typewriter-msg" class="whitespace-pre-line"></p>
             </div>
@@ -22,7 +24,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
                 </svg>
-                <p>NEXT</p>
+                <p>Next Message</p>
               </button>
             </div>
           </div>
@@ -32,14 +34,14 @@
     <!-- Modal Overlay -->
     <div id="landing-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
       <div class="px-6">
-        <div class="w-full max-w-md mx-auto p-6 bg-white rounded-xl shadow-lg flex flex-col items-center gap-6">
-          <h2 class="text-2xl md:text-3xl font-bold text-center text-blue-700">Welcome!</h2>
+        <div class="w-full max-w-md mx-auto p-6 bg-white rounded-xl shadow-lg flex flex-col items-center gap-3">
+          <h2 class="text-2xl md:text-3xl font-bold text-center text-blue-700">Welcome po Wealyn! 😁</h2>
           <p class="text-base md:text-lg text-center text-gray-700">This page contains a special message for you. It may take
-            a while to read.<br><br><span class="font-semibold text-sm text-pink-600">For the best experience, please make sure
+            a while to read. <span class="font-semibold text-red-600">For the best experience, please make sure
               your device volume is up!</span></p>
           <div class="flex flex-col sm:flex-row gap-4 w-full justify-center">
             <button id="proceedBtn"
-              class="flex-1 py-3 px-6 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition">Proceed</button>
+              class="flex-1 py-3 px-6 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition">Okay</button>
             <!-- <button id="cancelBtn" class="flex-1 py-3 px-6 rounded-lg bg-gray-300 text-gray-800 font-semibold hover:bg-gray-400 transition">Cancel</button> -->
           </div>
         </div>
@@ -47,7 +49,7 @@
     </div>
     <!-- Cancel Message Modal -->
     <div id="cancel-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-      <div class="w-full max-w-md mx-auto p-6 px-4 bg-white rounded-xl shadow-lg flex flex-col items-center gap-6">
+      <div class="w-full max-w-md mx-auto p-6 px-4 bg-white rounded-xl shadow-lg flex flex-col items-center gap-3">
         <h2 class="text-2xl md:text-3xl font-bold text-center text-gray-700">Maybe Next Time!</h2>
         <p class="text-base md:text-lg text-center text-gray-600">You chose not to continue. If you change your mind, you can always come back and read your special message.</p>
         <button id="backBtn" class="py-3 px-8 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition">Back</button>
@@ -56,6 +58,19 @@
     <!-- Twinkling Stars Background with Overlay -->
     <div id="twinkle-overlay" class="pointer-events-none select-none fixed inset-0 z-10 bg-black/20"></div>
     <div id="twinkle-bg" class="pointer-events-none select-none fixed inset-0 z-10 overflow-hidden"></div>
+    <!-- Sign In Modal -->
+    <div id="sign-in-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-300 shadow-lg backdrop-blur-sm">
+      <div class="px-6">
+        <div class="w-full max-w-md mx-auto p-6 bg-white rounded-xl shadow-lg flex flex-col items-center gap-2">
+          <h2 class="text-2xl font-bold text-center text-red-700">⚠️WARNING⚠️</h2>
+          <h1 class="text-md font-bold text-left text-slate-700">The content of this page is solely for <span class="text-red-700">Wealyn S. Yap</span>! In order to avoid unauthorized access, you are required to enter a word only Wealyn would know. </h1>
+          <p class="text-slate-700 text-sm">Clue: First name of my twin (lowercase tanan wengg HAHAHAHAHA)</p>
+          <input type="text" id="sign-in-input" class="border border-gray-300 rounded-lg p-2 w-full  mt-3" placeholder="Enter the secret word" />
+          <button id="sign-in-btn" class="py-3 px-6 flex w-full justify-center mt-2 rounded-lg bg-green-600 text-white font-semibold hover:bg-green-700 transition"><p>Proceed</p></button>
+          <p id="sign-in-error" class="text-red-500 hidden">Incorrect word, please try again.</p>
+        </div>
+      </div>
+    </div>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         const audio = document.getElementById('bg-music');
@@ -64,6 +79,10 @@
         const mainContent = document.getElementById('main-content');
         const proceedBtn = document.getElementById('proceedBtn');
         const backBtn = document.getElementById('backBtn');
+        const signInModal = document.getElementById('sign-in-modal');
+        const signInInput = document.getElementById('sign-in-input');
+        const signInBtn = document.getElementById('sign-in-btn');
+        const signInError = document.getElementById('sign-in-error');
         if (proceedBtn) {
           proceedBtn.onclick = function() {
             landingModal.style.display = 'none';
@@ -84,6 +103,24 @@
             cancelModal.style.display = 'none';
             mainContent.style.filter = '';
             landingModal.style.display = 'flex';
+          };
+        }
+        if (signInBtn) {
+          signInBtn.onclick = async function() {
+            const hashedInput = "a553c8dc7ec47458d254a4dab2062ce2e6236359e8059f190c8bc6f60ec5153e";
+            const userInput = signInInput.value;
+            const hashedUserInput = await hashFunction(userInput);
+
+            if (hashedUserInput === hashedInput) {
+              signInModal.style.display = 'none';
+              landingModal.style.display = 'flex';
+            } else {
+              signInError.classList.remove('hidden');
+              signInInput.value = '';
+              setTimeout(() => {
+                signInError.classList.add('hidden');
+              }, 3000); // Hide error after 3 seconds
+            }
           };
         }
         // Twinkling stars logic
@@ -119,7 +156,7 @@
         const message1_2 = `I am genuinely proud gid ya para sa imo as your friend!!!! Nakita ko gid kung pano ka magbakas (lalo na sa aton capstone HAHAHAHAHAHAHA)`
         const message1_3 = `Gusto ko lang ihambal nga na-appreciate ko gid ang imo effort sa pag ubra sang papers naton kag for sure, wala gid nasayang ang imo efforts kay as you can see, magraduate na ta yeeeyyy HAHAHAHAHAHAHAHA`
         const message1_4 = `Mamiss ka gid nakon frfr kay isa ka gid sa gin turing ko nga genuine friend ko gid ya 🥺🥹`
-        const message1_5 = `Sorry gid kung masyado ko kasabad kag gamo gamo sa chat kis-a (indi lang kis-a, laban gid ya HAHAHAHAHAHA), basi gani guro nagsulod na simo mind nga e restrict ko para indi magamo gani sorry gid HAHAHAHAHAHAHAHAHA`
+        const message1_5 = `Sorry gid kung masyado ko kasabad kag gamo gamo sa chat kis-a (indi lang kis-a, laban gid ya HAHAHAHAHAHA)`
         const message1_6 = `Daw sa imo ko lang gid bi nafeel nga comfortable gid ko as in so sinawo mo gid tanan tanan HAHAHAHAHAHAHAHAH sorry gid ya wealyyyyyyn 😭🙏🏻`
         const message1_7 = `Sobra gid ko ka thankful kay naging part ka sang akon college life (although 3rd year na ta naging close nga duwa, which naga regret gid ko ya kay way ta ka ngadaan gin befriend 🥹) HALAAAAA ANO INI ANG GATULO SAKON CHURA!! GAGI GAULAN SA SULOD SANG KWARTO YA`
         let twMsgIndex = 0;
@@ -164,6 +201,16 @@
         };
         // Modal navigation logic can be added here for msg-2 to msg-5
       });
+
+      function hashFunction(input) {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(input);
+        return crypto.subtle.digest('SHA-256', data).then(hashBuffer => {
+          const hashArray = Array.from(new Uint8Array(hashBuffer));
+          const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+          return hashHex;
+        });
+      }
     </script>
     <style>
       .twinkle-star {
