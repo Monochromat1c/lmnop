@@ -15,16 +15,22 @@
           <div class="w-full max-w-2xl mx-auto p-8 bg-white/80 rounded-xl shadow-lg flex flex-col items-center gap-3 relative">
             <!-- Push Pin Icon -->
             <img src="src/images/pin.png" alt="Pin" class="absolute top-3 right-3 w-6 h-6 text-gray-500" />
-            <h1 id="typewriter-header" class="text-3xl md:text-5xl mt-2 font-bold text-center text-pink-700"></h1>
+            <h1 id="typewriter-header" class="text-3xl md:text-5xl mt-2 font-bold text-center text-green-700"></h1>
             <div class="text-lg md:text-2xl text-center text-gray-800">
               <p id="typewriter-msg" class="whitespace-pre-line"></p>
             </div>
-            <div id="message-navigation" class="flex flex-col sm:flex-row gap-4 w-full justify-center hidden">
-              <button id="nextMsgBtn" class="flex-1 py-3 px-6 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition flex items-center justify-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+            <div id="message-navigation" class="flex flex-row gap-4 w-full justify-center hidden mt-3">
+              <button id="prevMsgBtn" class="flex-1 py-3 px-6 rounded-lg bg-gray-600 text-white text-sm font-semibold hover:bg-gray-700 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6 inline-block mr-2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
                 </svg>
-                <p>Next Message</p>
+                Previous
+              </button>
+              <button id="nextMsgBtn" class="flex-1 py-3 px-6 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition flex items-center justify-center gap-2">
+                Next
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6 inline-block mr-2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
               </button>
             </div>
           </div>
@@ -35,7 +41,7 @@
     <div id="landing-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
       <div class="px-6">
         <div class="w-full max-w-md mx-auto p-6 bg-white rounded-xl shadow-lg flex flex-col items-center gap-3">
-          <h2 class="text-2xl md:text-3xl font-bold text-center text-blue-700">Welcome po Wealyn! 😁</h2>
+          <h2 class="text-2xl md:text-3xl font-bold text-center text-green-700">Welcome po Wealyn! 😁</h2>
           <p class="text-base md:text-lg text-center text-gray-700">This page contains a special message for you. It may take
             a while to read. <span class="font-semibold text-red-600">For the best experience, please make sure
               your device volume is up!</span></p>
@@ -154,14 +160,25 @@
         const typewriterMsg = document.getElementById('typewriter-msg');
         const message1_1 = `Yudiiiiii graduate na sa kuno HAHAHAHAHAHHAHAHA`;
         const message1_2 = `I am genuinely proud gid ya para sa imo as your friend!!!! Nakita ko gid kung pano ka magbakas (lalo na sa aton capstone HAHAHAHAHAHAHA)`
-        const message1_3 = `Gusto ko lang ihambal nga na-appreciate ko gid ang imo effort sa pag ubra sang papers naton kag for sure, wala gid nasayang ang imo efforts kay as you can see, magraduate na ta yeeeyyy HAHAHAHAHAHAHAHA`
+        const message1_3 = `Gusto ko lang ihambal nga na-appreciate ko gid ang imo effort sa pag ubra sang papers naton, sa mga pagpulaw mo, kag sa mga time nga nastress ka ubra, for sure wala gid nasayang ang imo efforts kag pagpangabudlay kay as you can see, graduate na ta yeeeyyyyyy`
         const message1_4 = `Mamiss ka gid nakon frfr kay isa ka gid sa gin turing ko nga genuine friend ko gid ya 🥺🥹`
         const message1_5 = `Sorry gid kung masyado ko kasabad kag gamo gamo sa chat kis-a (indi lang kis-a, laban gid ya HAHAHAHAHAHA)`
         const message1_6 = `Daw sa imo ko lang gid bi nafeel nga comfortable gid ko as in so sinawo mo gid tanan tanan HAHAHAHAHAHAHAHAH sorry gid ya wealyyyyyyn 😭🙏🏻`
-        const message1_7 = `Sobra gid ko ka thankful kay naging part ka sang akon college life (although 3rd year na ta naging close nga duwa, which naga regret gid ko ya kay way ta ka ngadaan gin befriend 🥹) HALAAAAA ANO INI ANG GATULO SAKON CHURA!! GAGI GAULAN SA SULOD SANG KWARTO YA`
+        const message1_7 = `Sobra gid ko ka thankful kay naging part ka sang akon college life (although 3rd year na ta naging close nga duwa, which naga regret gid ko ya kay way ta ka ngadaan gin befriend 🥹)`
+        const message1_8 = `HALAAAAA ANO INI ANG GATULO SAKON CHURA!! GAGI GAULAN SA SULOD SANG KWARTO YA`
+        const message1_9 = `You might not know this, pero aside kay kezia, mahambal ko gid nga naapektuhan mo gid akon personality (positively). I can confidently say nga mas naging 'positive' ko umpisa sang nag upod ko simo. Kung wala na natabo, panigurado nega man ko gyapon asta yanda`
+        const message1_10 = `Umpisa sang naging friends ta, amat amat naglain ang akon view sa life, like napanumdom ko nga why not e enjoy nalang ang nabilin ko nga time sa college kay manog graduate naman ko`
+        const message1_11 = `Mina nga kung may mga event or kung nano, naga attend nalang ko kay I want to make memories upod ka kay feel ko ulhi na gid ta nga duwa naging close.`
+        const message1_12 = `Gagiiii gatalisik di sakon kwarto ya. Sirado man gani ang bintana kag HAHAHAHAHAHAHA`
+        const message1_13 = `OKAYYY TAMA NA NA, BASI MAGWAWAW KO DI KARON ISA LANG KO SA KWARTO HAHAHAHAHAHAHAHHA`
+        const message1_14 = `May ihambal pako tani tungkol sa inyo ni twin kaso baka magkaunauthorized access tong message at mabasahan ng iba HAHAHAHAHAHA. Basta bal-an mo naman na akon nahambal pirmi HAHAHAHAHAHAHA, e wish ko lang kamo di nga duwa pirmi 😁✨`
+        const message1_15 = `I genuinely hope and want to see you succeed in life!!!`
+        const message1_16 = `Grabi ari na ta sa next page sang aton kabuhi. Mini gid ang ginatawag nila nga real world. Tas pareho pa ta nga duwa wala kabalo kung ano aton himuon HAHAHAHAHAHAHA`
+        const message1_17 = `Kung ano man ang aton magiging next nga decision, tani magiging positive ang impact sina sa aton life, kag tani ipalayo lang ta sa hardships kag failure`
+        const message1_18 = `Sa liwat, big congratulations sa imo WEAAALYYYN!!!! 🎓🎉💖`
         let twMsgIndex = 0;
         let currentTextIndex = 0; // To keep track of which text is being typed
-        const textsToType = [message1_1, message1_2, message1_3, message1_4, message1_5, message1_6, message1_7]; // Array of texts to type
+        const textsToType = [message1_1, message1_2, message1_3, message1_4, message1_5, message1_6, message1_7, message1_8, message1_9, message1_10, message1_11, message1_12, message1_13, message1_14, message1_15, message1_16, message1_17, message1_18]; // Array of texts to type
         let typingComplete = false; // Flag to indicate if typing of current message is complete
         function typeWriterMsg() {
           if (currentTextIndex < textsToType.length) {
@@ -170,7 +187,7 @@
             if (twMsgIndex <= currentText.length) {
               typewriterMsg.textContent = currentText.slice(0, twMsgIndex);
               twMsgIndex++;
-              setTimeout(typeWriterMsg, 35);
+              setTimeout(typeWriterMsg, 1); // Adjusted for 100 wpm
             } else {
               // Finished typing current text, now show Next button
               typingComplete = true;
@@ -180,24 +197,33 @@
             }
           }
         }
-        function startDeleteAndType() {
+        function startBackspace() {
+          document.getElementById('message-navigation').classList.add('hidden'); // Hide next button
           const currentElementText = typewriterMsg.textContent;
-          typewriterMsg.classList.add('selected'); // Add selection class
-          typewriterMsg.style.userSelect = 'all'; // Simulate text selection
-          setTimeout(() => {
-            typewriterMsg.textContent = ''; // Clear the message immediately
-            typewriterMsg.classList.remove('selected'); // Remove selection class
-            typewriterMsg.style.userSelect = 'none'; // Disable text selection
+          if (currentElementText.length > 0) {
+            typewriterMsg.textContent = currentElementText.slice(0, currentElementText.length - 1);
+            setTimeout(startBackspace, 5);
+          } else {
             currentTextIndex++;
             twMsgIndex = 0;
             typingComplete = false;
-            setTimeout(typeWriterMsg, 500); // Start typing the next message after a short delay
-          }, 3000); // Duration of the selection effect
+            setTimeout(typeWriterMsg, 40);
+          }
         }
         // Hook up the next button
         document.getElementById('nextMsgBtn').onclick = function() {
           if (typingComplete) {
-            startDeleteAndType();
+            startBackspace();
+          }
+        };
+        document.getElementById('prevMsgBtn').onclick = function() {
+          if (currentTextIndex > 0) {
+            currentTextIndex--;
+            twMsgIndex = 0;
+            typingComplete = false;
+            typewriterMsg.textContent = '';
+            document.getElementById('message-navigation').classList.add('hidden');
+            typeWriterMsg();
           }
         };
         // Modal navigation logic can be added here for msg-2 to msg-5
@@ -226,10 +252,6 @@
       @keyframes twinkle {
         0%, 100% { opacity: 0.85; }
         50% { opacity: 0.2; }
-      }
-      .selected {
-        background-color: rgba(173, 216, 230, 0.5); /* Light blue background */
-        transition: background-color 0.3s ease;
       }
     </style>
   </body>
