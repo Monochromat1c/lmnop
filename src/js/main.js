@@ -11,6 +11,13 @@ document.addEventListener('DOMContentLoaded', function() {
   const signInError = document.getElementById('sign-in-error');
   const loadingSpinner = document.getElementById('loading-spinner');
   const msg1Modal = document.getElementById('msg-1');
+  const messageCounter = document.getElementById('message-counter');
+  const audioControls = document.getElementById('audio-controls');
+  const muteUnmuteBtn = document.getElementById('mute-unmute-btn');
+  const volumeSlider = document.getElementById('volume-slider');
+  const volumeIcon = document.getElementById('volume-icon');
+  const firstMsgBtn = document.getElementById('firstMsgBtn');
+  const lastMsgBtn = document.getElementById('lastMsgBtn');
 
   // Show initial modal with transition
   setTimeout(() => {
@@ -25,6 +32,10 @@ document.addEventListener('DOMContentLoaded', function() {
         msg1Modal.classList.add('show');
         audio.volume = 0.7;
         audio.play().catch(() => {});
+        audioControls.classList.remove('hidden');
+        messageCounter.classList.remove('hidden');
+        volumeSlider.value = audio.volume;
+        updateVolumeIcon();
         typeWriterHeader();
       }, 300);
     };
@@ -128,6 +139,43 @@ document.addEventListener('DOMContentLoaded', function() {
     "P.S. Tani nagustohan mo akon small token of appreciation para simo HAHAHAHAHAHAHAHAHA"
   ];
 
+  // Audio controls functionality
+  let isMuted = false;
+  muteUnmuteBtn.onclick = function() {
+    if (audio.muted) {
+      audio.muted = false;
+      isMuted = false;
+      audio.volume = volumeSlider.value;
+    } else {
+      audio.muted = true;
+      isMuted = true;
+    }
+    updateVolumeIcon();
+  };
+
+  volumeSlider.oninput = function() {
+    audio.volume = volumeSlider.value;
+    audio.muted = false;
+    isMuted = false;
+    updateVolumeIcon();
+  };
+
+  function updateVolumeIcon() {
+    // Lucide Icons inspired paths
+    const speakerBase = 'M11 5L6 9H2V15H6L11 19V5Z';
+
+    if (audio.muted || audio.volume === 0) {
+      // Muted: Speaker base + cross
+      volumeIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="${speakerBase}M22 9L16 15 M16 9L22 15" />`;
+    } else if (audio.volume < 0.5) {
+      // Low volume: Speaker base + one wave
+      volumeIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="${speakerBase}M15.54 8.46a5 5 0 010 7.07" />`;
+    } else {
+      // Full volume: Speaker base + two waves
+      volumeIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="${speakerBase}M15.54 8.46a5 5 0 010 7.07 M19.07 4.93a10 10 0 010 14.14" />`;
+    }
+  }
+
   // Typewriter effect for header
   const typewriterHeader = document.getElementById('typewriter-header');
   const headerText = "Congratulations, WEALYYYYYYYYN!";
@@ -139,63 +187,78 @@ document.addEventListener('DOMContentLoaded', function() {
       twHeaderIndex++;
       setTimeout(typeWriterHeader, 50);
     } else {
-      typeWriterMsg();
+      displayMessage(currentTextIndex);
     }
   }
 
-  // Typewriter effect for messages
+  // Typewriter effect for messages with smooth transitions
   const typewriterMsg = document.getElementById('typewriter-msg');
   let twMsgIndex = 0;
   let currentTextIndex = 0;
   let typingComplete = false;
+  let messageDisplayTimeout;
 
-  function typeWriterMsg() {
-    if (currentTextIndex < messages.length) {
-      const currentText = messages[currentTextIndex];
-      if (twMsgIndex <= currentText.length) {
-        typewriterMsg.textContent = currentText.slice(0, twMsgIndex);
-        twMsgIndex++;
-        setTimeout(typeWriterMsg, 1);
-      } else {
-        typingComplete = true;
-        if (currentTextIndex + 1 < messages.length) {
+  function updateMessageCounter() {
+    messageCounter.textContent = `Message ${currentTextIndex + 1}/${messages.length}`;
+  }
+
+  function displayMessage(index) {
+    clearTimeout(messageDisplayTimeout);
+    currentTextIndex = index;
+    typingComplete = false;
+    twMsgIndex = 0;
+    updateMessageCounter();
+
+    // Fade out current message
+    typewriterMsg.style.opacity = '0';
+    typewriterMsg.style.transition = 'opacity 0.5s ease-out';
+
+    setTimeout(() => {
+      typewriterMsg.textContent = ''; // Clear content after fade out
+      typewriterMsg.style.transition = ''; // Remove transition for instant content change
+
+      function type() {
+        if (twMsgIndex <= messages[currentTextIndex].length) {
+          typewriterMsg.textContent = messages[currentTextIndex].slice(0, twMsgIndex);
+          twMsgIndex++;
+          messageDisplayTimeout = setTimeout(type, 1);
+        } else {
+          typingComplete = true;
           document.getElementById('message-navigation').classList.remove('hidden');
         }
       }
-    }
-  }
 
-  function startBackspace() {
-    document.getElementById('message-navigation').classList.add('hidden');
-    const currentElementText = typewriterMsg.textContent;
-    if (currentElementText.length > 0) {
-      typewriterMsg.textContent = currentElementText.slice(0, currentElementText.length - 1);
-      setTimeout(startBackspace, 5);
-    } else {
-      currentTextIndex++;
-      twMsgIndex = 0;
-      typingComplete = false;
-      setTimeout(typeWriterMsg, 40);
-    }
+      // Fade in new message
+      typewriterMsg.style.opacity = '1';
+      typewriterMsg.style.transition = 'opacity 0.5s ease-in';
+      type();
+    }, 500); // Wait for fade out to complete
   }
 
   // Navigation buttons
   document.getElementById('nextMsgBtn').onclick = function() {
-    if (typingComplete) {
-      startBackspace();
+    if (typingComplete && currentTextIndex + 1 < messages.length) {
+      displayMessage(currentTextIndex + 1);
     }
   };
 
   document.getElementById('prevMsgBtn').onclick = function() {
     if (currentTextIndex > 0) {
-      currentTextIndex--;
-      twMsgIndex = 0;
-      typingComplete = false;
-      typewriterMsg.textContent = '';
-      document.getElementById('message-navigation').classList.add('hidden');
-      typeWriterMsg();
+      displayMessage(currentTextIndex - 1);
     }
   };
+
+  if (firstMsgBtn) {
+    firstMsgBtn.onclick = function() {
+      displayMessage(0);
+    };
+  }
+
+  if (lastMsgBtn) {
+    lastMsgBtn.onclick = function() {
+      displayMessage(messages.length - 1);
+    };
+  }
 });
 
 function hashFunction(input) {
