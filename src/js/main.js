@@ -19,6 +19,14 @@ document.addEventListener('DOMContentLoaded', function() {
   const firstMsgBtn = document.getElementById('firstMsgBtn');
   const lastMsgBtn = document.getElementById('lastMsgBtn');
 
+  // Audio playlist
+  const audioFiles = [
+    'src/audio/bgm.mp3',
+    'src/audio/bgm2.mp3',
+    'src/audio/bgm3.mp3'
+  ];
+  let currentAudioIndex = 0;
+
   // Show initial modal with transition
   setTimeout(() => {
     signInModal.classList.add('show');
@@ -31,6 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
         landingModal.style.display = 'none';
         msg1Modal.classList.add('show');
         audio.volume = 0.7;
+        audio.src = audioFiles[currentAudioIndex]; // Set initial audio source
         audio.play().catch(() => {});
         audioControls.classList.remove('hidden');
         messageCounter.classList.remove('hidden');
@@ -40,6 +49,17 @@ document.addEventListener('DOMContentLoaded', function() {
       }, 300);
     };
   }
+
+  // Audio playlist looping
+  audio.addEventListener('ended', () => {
+    currentAudioIndex = (currentAudioIndex + 1) % audioFiles.length;
+    audio.src = audioFiles[currentAudioIndex];
+    audio.load(); // Explicitly load the new audio source
+    audio.play().catch(() => {
+      // Optionally, handle or log the error if playback still fails
+      console.error("Audio playback failed after load.", audio.src);
+    });
+  });
 
   if (document.getElementById('cancelBtn')) {
     document.getElementById('cancelBtn').onclick = function() {
