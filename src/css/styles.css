@@ -48,14 +48,14 @@
 }
 
 .modal-transition {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
   opacity: 0;
-  transform: scale(0.95);
+  transform: scale(0.85) translateY(20px);
 }
 
 .modal-transition.show {
   opacity: 1;
-  transform: scale(1);
+  transform: scale(1) translateY(0);
 }
 
 .button-hover {
@@ -162,4 +162,25 @@
 .volume-slider::-moz-range-thumb:hover {
   transform: scale(1.2);
   box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
+}
+
+/* Dynamic Backgrounds */
+.bg-gradient-pink-blue {
+  background: linear-gradient(to bottom right, #fbcfe8, #bfdbfe);
+}
+
+.bg-gradient-purple-green {
+  background: linear-gradient(to bottom right, #e9d5ff, #dcfce7);
+}
+
+.bg-gradient-yellow-orange {
+  background: linear-gradient(to bottom right, #fde68a, #fed7aa);
+}
+
+.bg-gradient-teal-lime {
+  background: linear-gradient(to bottom right, #ccfbf1, #d9f99d);
+}
+
+body {
+  transition: background 1s ease-in-out;
 }

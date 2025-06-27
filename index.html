@@ -6,15 +6,15 @@
     <title>✉️</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="src/css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
   </head>
   <body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-100 to-blue-100">
     <audio id="bg-music" src="src/audio/bgm.mp3" loop></audio>
     <div class="p-6 z-20 relative" id="main-content">
       <!-- Message Modal -->
-      <div id="msg-1" class="fixed inset-0 z-40 flex items-center justify-center bg-black/40 backdrop-blur-sm modal-transition">
+      <div id="msg-1" class="fixed inset-0 z-40 flex items-center justify-center /40  modal-transition">
         <div class="px-6 w-full">
           <div class="w-full max-w-2xl mx-auto p-8 rounded-xl flex flex-col items-center gap-3 relative modal-content">
-            <!-- Push Pin Icon -->
             <img src="src/images/pin.png" alt="Pin" class="absolute top-3 right-3 w-6 h-6 text-gray-500" />
             <h1 id="typewriter-header" class="text-3xl md:text-5xl mt-2 font-bold text-center text-green-700"></h1>
             <div class="text-lg md:text-2xl text-center text-gray-800">
@@ -49,7 +49,7 @@
       </div>
     </div>
     <!-- Modal Overlay -->
-    <div id="landing-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm modal-transition">
+    <div id="landing-modal" class="fixed inset-0 z-50 flex items-center justify-center /60  modal-transition">
       <div class="px-6 w-full">
         <div class="w-full max-w-md mx-auto p-6 rounded-xl flex flex-col items-center gap-3 modal-content">
           <h2 class="text-2xl md:text-3xl font-bold text-center text-green-700">Welcome po Wealyn! 😁</h2>
@@ -64,7 +64,7 @@
       </div>
     </div>
     <!-- Cancel Message Modal -->
-    <div id="cancel-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm modal-transition">
+    <div id="cancel-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center /40  modal-transition">
       <div class="w-full max-w-md mx-auto p-6 px-4 rounded-xl flex flex-col items-center gap-3 modal-content">
         <h2 class="text-2xl md:text-3xl font-bold text-center text-gray-700">Maybe Next Time!</h2>
         <p class="text-base md:text-lg text-center text-gray-600">You chose not to continue. If you change your mind, you can always come back and read your special message.</p>
@@ -72,7 +72,7 @@
       </div>
     </div>
     <!-- Twinkling Stars Background with Overlay -->
-    <div id="twinkle-overlay" class="pointer-events-none select-none fixed inset-0 z-10 bg-black/20"></div>
+    <div id="twinkle-overlay" class="pointer-events-none select-none fixed inset-0 z-10 /20"></div>
     <div id="twinkle-bg" class="pointer-events-none select-none fixed inset-0 z-10 overflow-hidden"></div>
     <!-- Audio Controls -->
     <div id="audio-controls" class="audio-controls hidden">
@@ -84,7 +84,7 @@
       <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.7" class="volume-slider">
     </div>
     <!-- Sign In Modal -->
-    <div id="sign-in-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-300/50 backdrop-blur-sm modal-transition">
+    <div id="sign-in-modal" class="fixed inset-0 z-50 flex items-center justify-center  modal-transition">
       <div class="px-6 w-full">
         <div class="w-full max-w-md mx-auto p-6 rounded-xl flex flex-col items-center gap-2 modal-content">
           <h2 class="text-2xl font-bold text-center text-red-700">⚠️WARNING⚠️</h2>
@@ -96,7 +96,7 @@
         </div>
       </div>
     </div>
-    <div id="loading-spinner" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm modal-transition">
+    <div id="loading-spinner" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm  modal-transition">
       <div class="loader"></div>
     </div>
     <script src="src/js/main.js"></script>

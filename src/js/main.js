@@ -187,6 +187,12 @@ document.addEventListener('DOMContentLoaded', function() {
       twHeaderIndex++;
       setTimeout(typeWriterHeader, 50);
     } else {
+      // Trigger confetti when header typing is complete
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
       displayMessage(currentTextIndex);
     }
   }
@@ -197,6 +203,13 @@ document.addEventListener('DOMContentLoaded', function() {
   let currentTextIndex = 0;
   let typingComplete = false;
   let messageDisplayTimeout;
+  const body = document.body; // Get the body element
+  const backgroundClasses = [
+    'bg-gradient-pink-blue',
+    'bg-gradient-purple-green',
+    'bg-gradient-yellow-orange',
+    'bg-gradient-teal-lime'
+  ];
 
   function updateMessageCounter() {
     messageCounter.textContent = `Message ${currentTextIndex + 1}/${messages.length}`;
@@ -208,6 +221,10 @@ document.addEventListener('DOMContentLoaded', function() {
     typingComplete = false;
     twMsgIndex = 0;
     updateMessageCounter();
+
+    // Change background based on message index
+    body.className = body.className.split(' ').filter(c => !c.startsWith('bg-gradient')).join(' ');
+    body.classList.add(backgroundClasses[currentTextIndex % backgroundClasses.length]);
 
     // Fade out current message
     typewriterMsg.style.opacity = '0';
