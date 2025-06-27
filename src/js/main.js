@@ -276,24 +276,40 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('nextMsgBtn').onclick = function() {
     if (typingComplete && currentTextIndex + 1 < messages.length) {
       displayMessage(currentTextIndex + 1);
+      this.classList.add('ripple-active');
+      setTimeout(() => {
+        this.classList.remove('ripple-active');
+      }, 600); // Match CSS transition duration
     }
   };
 
   document.getElementById('prevMsgBtn').onclick = function() {
     if (currentTextIndex > 0) {
       displayMessage(currentTextIndex - 1);
+      this.classList.add('ripple-active');
+      setTimeout(() => {
+        this.classList.remove('ripple-active');
+      }, 600); // Match CSS transition duration
     }
   };
 
   if (firstMsgBtn) {
     firstMsgBtn.onclick = function() {
       displayMessage(0);
+      this.classList.add('ripple-active');
+      setTimeout(() => {
+        this.classList.remove('ripple-active');
+      }, 600); // Match CSS transition duration
     };
   }
 
   if (lastMsgBtn) {
     lastMsgBtn.onclick = function() {
       displayMessage(messages.length - 1);
+      this.classList.add('ripple-active');
+      setTimeout(() => {
+        this.classList.remove('ripple-active');
+      }, 600); // Match CSS transition duration
     };
   }
 });
