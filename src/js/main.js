@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', function() {
   const messageCounter = document.getElementById('message-counter');
   const audioControls = document.getElementById('audio-controls');
   const muteUnmuteBtn = document.getElementById('mute-unmute-btn');
-  const volumeSlider = document.getElementById('volume-slider');
   const volumeIcon = document.getElementById('volume-icon');
   const firstMsgBtn = document.getElementById('firstMsgBtn');
   const lastMsgBtn = document.getElementById('lastMsgBtn');
@@ -43,7 +42,6 @@ document.addEventListener('DOMContentLoaded', function() {
         audio.play().catch(() => {});
         audioControls.classList.remove('hidden');
         messageCounter.classList.remove('hidden');
-        volumeSlider.value = audio.volume;
         updateVolumeIcon();
         typeWriterHeader();
       }, 300);
@@ -150,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
     "Mina nga kung may mga event or kung nano, naga attend nalang ko kay I want to make memories upod ka kay feel ko ulhi na gid ta nga duwa naging close",
     "Gagiiii gatalisik di sakon kwarto ya. Sirado man gani ang bintana kag HAHAHAHAHAHAHA",
     "OKAYYY TAMA NA NA, BASI MAGWAWAW KO DI KARON ISA LANG KO SA KWARTO HAHAHAHAHAHAHAHHA",
-    "May ihambal pako tani tungkol sa inyo ni twin kaso baka magka-unauthorized access tong message at mabasahan ng iba HAHAHAHAHAHA. Basta bal-an mo naman na akon nahambal pirmi HAHAHAHAHAHAHA, e wish ko lang kamo di nga duwa pirmi 😁✨",
+    "May ihambal pako tani tungkol sa inyo ni kilala ta kaso baka magka-unauthorized access tong message at mabasahan ng iba HAHAHAHAHAHA. Basta bal-an mo naman na akon nahambal pirmi HAHAHAHAHAHAHA, e wish ko lang kamo di nga duwa pirmi 😁✨",
     "I genuinely hope and want to see you succeed in life!!!",
     "Grabi ari na ta sa next page sang aton kabuhi. Mini gid ang ginatawag nila nga real world. Tas pareho pa ta nga duwa wala kabalo kung ano aton himuon HAHAHAHAHAHAHA",
     "Kung ano man ang aton magiging next nga decision, tani magiging positive ang impact sina sa aton life, kag tani ipalayo lang ta sa hardships kag failure",
@@ -165,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (audio.muted) {
       audio.muted = false;
       isMuted = false;
-      audio.volume = volumeSlider.value;
+      audio.volume = 0.7; // Set to a default volume when unmuted
     } else {
       audio.muted = true;
       isMuted = true;
@@ -173,25 +171,15 @@ document.addEventListener('DOMContentLoaded', function() {
     updateVolumeIcon();
   };
 
-  volumeSlider.oninput = function() {
-    audio.volume = volumeSlider.value;
-    audio.muted = false;
-    isMuted = false;
-    updateVolumeIcon();
-  };
-
   function updateVolumeIcon() {
     // Lucide Icons inspired paths
     const speakerBase = 'M11 5L6 9H2V15H6L11 19V5Z';
 
-    if (audio.muted || audio.volume === 0) {
+    if (audio.muted || isMuted) {
       // Muted: Speaker base + cross
       volumeIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="${speakerBase}M22 9L16 15 M16 9L22 15" />`;
-    } else if (audio.volume < 0.5) {
-      // Low volume: Speaker base + one wave
-      volumeIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="${speakerBase}M15.54 8.46a5 5 0 010 7.07" />`;
     } else {
-      // Full volume: Speaker base + two waves
+      // Unmuted: Speaker base + full volume icon
       volumeIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="${speakerBase}M15.54 8.46a5 5 0 010 7.07 M19.07 4.93a10 10 0 010 14.14" />`;
     }
   }
